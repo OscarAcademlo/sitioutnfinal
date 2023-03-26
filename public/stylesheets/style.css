@@ -103,3 +103,8 @@ top: -300px;
 .tabla{
  align-items: flex-end;
 }
+.agregar{
+    margin-top:100px;
+    margin-bottom: 80px;
+   
+}

@@ -20,6 +20,40 @@ router.get('/eliminar/:id', async (req, res, next) =>  {
     res.redirect('/admin/novedades')
     
     });
+// Pagina agregar
+    router.get('/agregar', async  (req, res, next) => {
+       
+        res.render('admin/agregar', {
+            layout: 'admin/layout',
+        })
+    });
+
+    // Inserta la novedad en bd
+
+    router.post('/agregar',async (req,res,next) => {
+        try {
+            
+            if( req.body.titulo != "" && req.body.subtitulo != "" && req.body.cuerpo != ""){
+                await novedadesModels.insertNovedad(req.body);
+                res.redirect('/admin/novedades')
+            }else{
+                res.render('admin/agregar', {
+                    layout: 'admin/layout',
+                    error:true,
+                    message: 'Todos los campos son requeridos'
+                })
+            }
+            
 
 
-module.exports = router;
+        } catch (error) {
+            console.log(error);
+            res.render('admin/agregar', {
+            layout: 'admin/layout',
+            error:true,
+            message:'No se cargo la novedad'
+            
+        })
+    }
+})
+    module.exports = router;
